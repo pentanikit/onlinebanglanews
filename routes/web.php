@@ -20,7 +20,7 @@ use App\Http\Controllers\CommentController;
 
 // homepage (you can point this to your newspaper frontend)
 Route::get('/', function () {
-    return view('welcome'); // or return view('frontend.home');
+    return view('frontend.home'); // or return view('frontend.home');
 })->name('home');
 
 /*
