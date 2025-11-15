@@ -11,6 +11,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,10 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 | You can wrap these with middleware(['auth','can:...']) later.
 */
+
+//dashboard
+Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+Route::get('post', [DashboardController::class, 'posts'])->name('posts');
 
 // Roles
 Route::resource('roles', RoleController::class);
