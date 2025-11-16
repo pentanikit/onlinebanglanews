@@ -42,7 +42,7 @@ class CategoryController extends Controller
             return response()->json(['success' => true, 'data' => $category], 201);
         }
 
-        return redirect()->route('categories.index')->with('success', 'Category created.');
+        return redirect()->back()->with('success', 'Category created.');
     }
 
     public function show(Category $category, Request $request)

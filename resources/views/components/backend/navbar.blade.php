@@ -1,3 +1,4 @@
+  <!-- Top Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top border-bottom">
     <div class="container-fluid">
       <button class="btn btn-outline-secondary d-lg-none me-2" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar"><i class="bi bi-list"></i></button>

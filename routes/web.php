@@ -33,7 +33,7 @@ Route::get('/', function () {
 
 //dashboard
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-Route::get('post', [DashboardController::class, 'posts'])->name('posts');
+
 
 // Roles
 Route::resource('roles', RoleController::class);

@@ -7,10 +7,8 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function dashboard(){
-        return view('backend.dashboard');
+        return view('backend.main');
     }
 
-    public function posts(){
-        return view('backend.post');
-    }
+
 }

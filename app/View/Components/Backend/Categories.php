@@ -5,18 +5,20 @@ namespace App\View\Components\Backend;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Post;
+use App\Models\Category;
 
-class Posts extends Component
+class Categories extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $posts;
+    public $categories;
 
     public function __construct()
     {
-        $this->posts = Post::latest()->paginate(10);
+        $this->categories = Category::orderBy('order_column')
+            ->orderBy('id')
+            ->get();
     }
 
     /**
@@ -24,6 +26,6 @@ class Posts extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.backend.posts');
+        return view('components.backend.categories');
     }
 }

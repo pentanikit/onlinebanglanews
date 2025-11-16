@@ -5,18 +5,15 @@ namespace App\View\Components\Backend;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Post;
 
-class Posts extends Component
+class Users extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $posts;
-
     public function __construct()
     {
-        $this->posts = Post::latest()->paginate(10);
+        //
     }
 
     /**
@@ -24,6 +21,6 @@ class Posts extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.backend.posts');
+        return view('components.backend.users');
     }
 }
