@@ -101,6 +101,11 @@ Route::get('/page/{slug}', function ($slug) {
     return view('frontend.page', compact('page'));
 })->name('page.show');
 
+
+//news by category slug
+Route::get('categories/{slug}', [PostController::class, 'categoryNews'])->name('categorywisenews');
+
+
 /*
 |--------------------------------------------------------------------------
 | Fallback (optional)

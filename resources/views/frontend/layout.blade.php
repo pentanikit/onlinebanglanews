@@ -35,18 +35,7 @@
     </div>
   </header>
     <!-- Nav -->
-  <nav class="main-nav">
-    <div class="container nav-inner">
-      <a href="#" class="active">প্রচ্ছদ</a>
-      <a href="#">জাতীয়</a>
-      <a href="#">আন্তর্জাতিক</a>
-      <a href="#">অর্থনীতি</a>
-      <a href="#">খেলাধুলা</a>
-      <a href="#">বিনোদন</a>
-      <a href="#">ফিচার</a>
-      <a href="#">মতামত</a>
-    </div>
-  </nav>
+  <x-frontend.navigation />
 
   @yield('pages')
 

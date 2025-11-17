@@ -1,25 +1,22 @@
 <?php
 
-namespace App\View\Components\Backend;
+namespace App\View\Components\Frontend;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\Post;
-use App\Models\Category;
 
-class Posts extends Component
+class BreakingNews extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $posts;
-    public $categories;
+    public $breaking;
 
     public function __construct()
     {
-        $this->posts = Post::with(['featuredImage', 'category'])->paginate(10);
-        $this->categories = Category::all();
+        $this->breaking = Post::where('is_breaking', true)->paginate(10);
     }
 
     /**
@@ -27,6 +24,6 @@ class Posts extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.backend.posts');
+        return view('components.frontend.breaking-news');
     }
 }
