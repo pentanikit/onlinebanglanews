@@ -38,6 +38,8 @@
 
       <main class="col-lg-9 col-xl-10 p-3 p-lg-4">
         <x-backend.dashboard />
+
+        <x-backend.logos />
         <!-- Posts -->
         <x-backend.posts />
 

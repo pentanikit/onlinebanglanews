@@ -105,6 +105,9 @@ Route::get('/page/{slug}', function ($slug) {
 //news by category slug
 Route::get('categories/{slug}', [PostController::class, 'categoryNews'])->name('categorywisenews');
 
+//single news
+Route::get('single-news/{post}', [PostController::class, 'show'])->name('singleNews');
+
 
 /*
 |--------------------------------------------------------------------------

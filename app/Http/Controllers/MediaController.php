@@ -24,32 +24,80 @@ class MediaController extends Controller
         return view('media.create');
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'file'      => 'required|file|mimes:jpg,jpeg,png,webp,gif,svg|max:5120',
-            'alt_text'  => 'nullable|string|max:255',
-        ]);
+public function store(Request $request)
+{
+   
+    $fieldName = null;
 
-        $path = $request->file('file')->store('uploads/media', 'public');
+    if ($request->hasFile('logo')) {
+        $fieldName = 'logo';
+    } elseif ($request->hasFile('favicon')) {
+        $fieldName = 'favicon';
+    } elseif ($request->hasFile('file')) {
+       
+        $fieldName = 'file';
+    }
 
-        $media = Media::create([
-            'file_name'   => $request->file('file')->getClientOriginalName(),
-            'file_path'   => 'storage/' . $path,
-            'mime_type'   => $request->file('file')->getMimeType(),
-            'file_size'   => $request->file('file')->getSize(),
-            'alt_text'    => $data['alt_text'] ?? null,
-            'uploaded_by' => $request->user()?->id,
-        ]);
-
-        // Example: dispatch(new OptimizeImageJob($media->id));
-
-        if ($request->expectsJson()) {
-            return response()->json(['success' => true, 'data' => $media], 201);
+    if (!$fieldName) {
+        
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'কোনো ফাইল পাওয়া যায়নি।',
+            ], 422);
         }
 
-        return redirect()->route('media.index')->with('success', 'Media uploaded.');
+        return back()->withErrors(['file' => 'কোনো ফাইল পাওয়া যায়নি।']);
     }
+
+    
+    $validated = $request->validate([
+        $fieldName  => 'required|file|mimes:jpg,jpeg,png,webp,gif,svg,ico|max:5120',
+        'alt_text'  => 'nullable|string|max:255',
+    ]);
+
+    $file = $request->file($fieldName);
+
+    
+    $path = $file->store('uploads/media', 'public'); // storage/app/public/uploads/media
+
+    $media = Media::create([
+        'file_name'   => $file->getClientOriginalName(),
+        'file_path'   => $path, // public path এর জন্য
+        'mime_type'   => $file->getMimeType(),
+        'file_size'   => $file->getSize(),
+        'alt_text'    =>  $request->input('type'),
+        'uploaded_by' => $request->user()?->id ?? 1,
+    ]);
+
+   
+    $type = $request->input('type'); // 'logo' or 'favicon'
+
+   
+
+    $message = 'মিডিয়া সফলভাবে আপলোড হয়েছে।';
+    if ($type === 'logo') {
+        $message = 'লোগো সফলভাবে আপলোড হয়েছে।';
+    } elseif ($type === 'favicon') {
+        $message = 'ফেভিকন সফলভাবে আপলোড হয়েছে।';
+    }
+
+    $responseData = [
+        'success' => true,
+        'message' => $message,
+        'data'    => $media,
+    ];
+
+    
+    if ($request->expectsJson() || $request->ajax()) {
+        return response()->json($responseData, 201);
+    }
+
+   
+    return redirect()
+        ->back()
+        ->with('success', $message);
+}
 
     public function show(Media $media, Request $request)
     {

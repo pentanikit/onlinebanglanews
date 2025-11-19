@@ -5,7 +5,8 @@
   <title>বাংলা সংবাদপত্র</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <!-- Google Font (optional) -->
+  <!-- Google Font (optional) --
+    >
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -23,17 +24,7 @@
     </div>
   </div>
     <!-- Header -->
-  <header class="header">
-    <div class="container header-inner">
-      <div class="logo">
-        <h1>দৈনিক সময়বার্তা</h1>
-        <p class="tagline">সত্য ও নির্ভরযোগ্য সংবাদ</p>
-      </div>
-      <div class="banner-ad">
-        <span>728x90 AD</span>
-      </div>
-    </div>
-  </header>
+  <x-frontend.header />
     <!-- Nav -->
   <x-frontend.navigation />
 

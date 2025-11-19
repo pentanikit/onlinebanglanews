@@ -165,7 +165,7 @@ class PostController extends Controller
             return response()->json($post);
         }
 
-        return view('posts.show', compact('post'));
+        return view('frontend.singlenews', compact('post'));
     }
 
     public function edit(Post $post)

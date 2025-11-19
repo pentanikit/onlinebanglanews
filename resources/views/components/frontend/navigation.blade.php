@@ -10,7 +10,7 @@
               $href = url('/'); // বা route('home') যদি থাকে
           } else {
               // বাকি আইটেম = ক্যাটাগরি
-              $href = url('category/' . $item->slug); // নিজের রুট অনুযায়ী ঠিক করে নাও
+              $href = url('categories/' . $item->slug); // নিজের রুট অনুযায়ী ঠিক করে নাও
           }
 
           // active ক্লাস নির্ধারণ
@@ -19,7 +19,7 @@
               $isActive = request()->is('/') || request()->routeIs('home');
           } else {
               // ক্যাটাগরি পেজে থাকলে সেই ক্যাটাগরি active
-              $isActive = request()->is('category/' . $item->slug);
+              $isActive = request()->is('categories/' . $item->slug);
           }
       @endphp
 
