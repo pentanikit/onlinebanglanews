@@ -1,5 +1,6 @@
     <main class="content">
 
+      {{-- @dd($singlePost->tags[0]->name) --}}
             
       <article class="single-post">
         <h1>{{ $singlePost->title }}</h1>
@@ -11,13 +12,25 @@
         </div>
 
         <!-- Tags / category -->
-        <div class="single-tags">
+      <div class="single-tags">
           <span>ট্যাগ:</span>
-          
-          <a href="#">জ্বালানি</a>
-          <a href="#">অর্থনীতি</a>
-          <a href="#">সরকার</a>
-        </div>
+
+          @if (!empty($singlePost->tags))
+              @foreach (explode(',', $singlePost->tags[0]->name) as $tag)
+                  @php $tag = trim($tag); @endphp
+
+                  @if($tag !== '')
+                     
+                      <a href="#">{{ $tag }}</a>
+
+                      {{-- যদি ট্যাগ পেজ থাকে, তাহলে এমনও করতে পারো:
+                      <a href="{{ route('tag.posts', ['tag' => $tag]) }}">{{ $tag }}</a>
+                      --}}
+                  @endif
+              @endforeach
+          @endif
+      </div>
+
       </article>
 
 

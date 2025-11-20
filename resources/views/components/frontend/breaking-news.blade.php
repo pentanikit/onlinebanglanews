@@ -7,7 +7,7 @@
 
     {{-- Lead news --}}
     <article class="lead-news">
-        <a href="{{ route('singleNews', $lead->id) }}">
+        <a href="{{ route('singleNews', $lead->slug) }}">
             <img src="{{ asset('storage') . '/' . $lead->featuredImage->file_path ?? '' }}"
                 style="width: 100%; height: auto; object-fit:cover;" alt="{{ $lead->title ?? 'Lead News' }}">
 
@@ -29,9 +29,10 @@
     @if ($others->isNotEmpty())
         <div class="news-grid">
             @foreach ($others as $item)
-                <article class="news-card">
+            <a href="{{ route('singleNews', $item->slug) }}">
+                 <article class="news-card" style="height: 440px;">
                     <img src="{{ asset('storage') . '/' . $item->featuredImage->file_path ?? '' }}"
-                        style="max-width: 240px; height: auto; object-fit:cover;"
+                        style="width: 100%; height: auto; object-fit:cover;"
                         alt="{{ $lead->title ?? 'Lead News' }}">
                     <h3>{{ $item->title }}</h3>
 
@@ -43,6 +44,8 @@
                         {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}
                     </p>
                 </article>
+            </a>
+               
             @endforeach
         </div>
     @endif

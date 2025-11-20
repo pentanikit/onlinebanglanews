@@ -9,7 +9,7 @@
 
       {{-- bangladesh news --}}
       <x-frontend.category-news slug="বাংলাদেশ"/>
-       <x-frontend.category-news2 slug="আন্তর্জাতিক"/>
+       <x-frontend.international-news slug="আন্তর্জাতিক"/>
      
     </main>
 

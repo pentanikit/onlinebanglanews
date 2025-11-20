@@ -68,10 +68,10 @@ class PostController extends Controller
             $data['slug'] = Str::slug($data['title']);
         }
 
-        // uploaded image (if any)
+       
         $uploadedImage = $request->file('image');
 
-        // 🔹 content স্ট্রিং থেকে tag নামগুলো বের করি (post টেবিলে content কলাম নেই, so just input)
+        
         $tagNames = collect();
 
 
@@ -79,8 +79,8 @@ class PostController extends Controller
         if (!empty($data['content'])) {
             $tagNames = collect(explode(',', $data['content']))
                 ->map(fn ($tag) => trim($tag))
-                ->filter()          // ফাঁকা বাদ
-                ->unique();         // ডুপ্লিকেট বাদ
+                ->filter()          
+                ->unique();         
         }
 
         $post = DB::transaction(function () use ($data, $authorId, $uploadedImage, $tagNames) {
@@ -157,9 +157,12 @@ class PostController extends Controller
     }
 
 
-    public function show(Post $post, Request $request)
+    public function show(string $slug, Request $request)
     {
-        $post->load(['author', 'category', 'tags', 'featuredImage', 'comments']);
+        
+        $post = Post::with(['author', 'category', 'tags', 'featuredImage', 'comments'])
+                    ->where('slug', $slug)
+                    ->firstOrFail();
 
         if ($request->expectsJson()) {
             return response()->json($post);
@@ -240,10 +243,17 @@ class PostController extends Controller
 
 
     //news by category
-    public function categoryNews(Request $request, $slug)
+    public function categoryNews(Request $request, string $slug)
     {
-        $catId = Category::where('slug', $slug)->pluck('id')->get();
-        $newsItems = Post::where('category_id', $catId)->paginate(10);
-        return view('singlenews')->compact('newsItems');
+        // dd('Route hit with slug: ' . $slug);
+        $category = Category::where('slug', $slug)->firstOrFail();
+        // dd($category->id);
+        $posts = Post::where('category_id', $category->id)->orderBy('created_at', 'desc')->with(['author', 'featuredImage', 'tags', 'comments'])->get();
+        // dd($posts);
+        return view('frontend.categorywisenews', [
+            'category' => $category,
+            'slug'     => $slug,
+            'posts' => $posts
+        ]);
     }
 }

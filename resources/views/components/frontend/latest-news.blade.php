@@ -2,7 +2,7 @@
         <h3>সর্বশেষ</h3>
         <ul class="list">
             @forelse ($latest as $item)
-                <li><a href="#">{{ $item->title }}</a></li>
+                <li><a href="{{ route('singleNews', $item->slug) }}">{{ $item->title }}</a></li>
             @empty
                  <p>এই ক্যাটাগরিতে কোনো খবর পাওয়া যায়নি।</p>
             @endforelse
