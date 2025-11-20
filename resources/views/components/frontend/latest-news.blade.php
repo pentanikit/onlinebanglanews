@@ -1,4 +1,4 @@
-      <div class="widget" style="width: 300px;">
+      <div class="widget" >
         <h3>সর্বশেষ</h3>
         <ul class="list">
             @forelse ($latest as $item)

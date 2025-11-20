@@ -17,7 +17,7 @@
     <aside class="sidebar">
       <x-frontend.latest-news />
 
-      <div class="widget" style="width: 300px;">
+      <div class="widget" >
         <h3>জনপ্রিয়</h3>
         <ul class="list">
           <li><a href="#">দামের মধ্যে যেসব স্মার্টফোন বাজারে</a></li>

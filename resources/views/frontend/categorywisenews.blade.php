@@ -42,12 +42,12 @@
                 </div>
 
                 <!-- Pagination (dummy) -->
-                <div class="pagination">
+                {{-- <div class="pagination">
                     <a href="#" class="active">1</a>
                     <a href="#">2</a>
                     <a href="#">3</a>
                     <a href="#">পরের পাতা »</a>
-                </div>
+                </div> --}}
             </main>
 
             <!-- Sidebar -->
