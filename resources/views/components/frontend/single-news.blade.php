@@ -15,7 +15,7 @@
       <div class="single-tags">
           <span>ট্যাগ:</span>
 
-          @if (!empty($singlePost->tags))
+          @if (($singlePost->tags)->isNotEmpty())
               @foreach (explode(',', $singlePost->tags[0]->name) as $tag)
                   @php $tag = trim($tag); @endphp
 
@@ -28,6 +28,8 @@
                       --}}
                   @endif
               @endforeach
+          @else
+          <p>No tags found</p>
           @endif
       </div>
 

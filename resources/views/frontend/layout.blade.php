@@ -19,6 +19,10 @@
 
       </div>
 
+      <div class="top-right">
+        <div id="bd-clock" style="font-size: 24px; font-weight: bold;"></div>
+      </div>
+
     </div>
   </div>
     <!-- Header -->
@@ -35,5 +39,28 @@
       <p>কারিগরি সহায়তায়: Pentanik IT</p>
     </div>
   </footer>
+  <script>
+function banglaClock() {
+    const options = { timeZone: 'Asia/Dhaka', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+    let time = new Intl.DateTimeFormat('en-US', options).format(new Date());
+
+    // Convert English digits + AM/PM to Bangla
+    const map = {
+        '0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯',
+        'AM':'সকাল','PM':'অপরাহ্ন'
+    };
+
+    // Replace digits
+    time = time.replace(/\d/g, d => map[d]);
+    // Replace AM/PM
+    time = time.replace(/AM|PM/g, ap => map[ap]);
+
+    document.getElementById('bd-clock').innerText = time;
+}
+
+// Initial run + update every second
+banglaClock();
+setInterval(banglaClock, 1000);
+</script>
 </body>
 </html>

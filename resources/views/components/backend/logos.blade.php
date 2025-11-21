@@ -15,7 +15,7 @@
             <div class="border rounded p-3 d-inline-block bg-light">
               <img
                 id="logoPreview"
-                src="{{ asset('storage').'/'.$logo[0] ?? asset('images/default-logo.png') }}"
+                src="{{ $logo ?? asset('storage').'/'.$logo[0] :: asset('images/default-logo.png') }}"
                 alt="Current Logo"
                 class="img-fluid"
                 style="max-height: 120px; object-fit: contain;"
@@ -46,7 +46,7 @@
             <div class="border rounded p-3 d-inline-block bg-light">
               <img
                 id="faviconPreview"
-                src="{{ asset('storage').'/'.$favicon[0] ?? asset('images/default-favicon.png') }}"
+                src="{{ $favicon ?? asset('storage').'/'.$favicon[0] :: asset('images/default-favicon.png') }}"
                 alt="Current Favicon"
                 class="img-fluid"
                 style="max-height: 64px; max-width: 64px; object-fit: contain;"

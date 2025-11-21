@@ -54,8 +54,8 @@ class PostController extends Controller
             'meta_title'        => 'nullable|string|max:255',
             'meta_description'  => 'nullable|string',
 
-            // চাইলে এগুলো এখন বাদও দিতে পারো, যদি আর ব্যবহার না করো
-            // 'tags'              => 'nullable|array',
+            
+             'tags'              => 'nullable|string',
             // 'tags.*'            => 'integer|exists:tags,id',
 
             'image'             => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
@@ -76,8 +76,8 @@ class PostController extends Controller
 
 
 
-        if (!empty($data['content'])) {
-            $tagNames = collect(explode(',', $data['content']))
+        if (!empty($data['tags'])) {
+            $tagNames = collect(explode(',', $data['tags']))
                 ->map(fn ($tag) => trim($tag))
                 ->filter()          
                 ->unique();         
@@ -112,8 +112,8 @@ class PostController extends Controller
                 'subheading'       => $data['subheading'] ?? null,
                 'excerpt'          => $data['excerpt'] ?? null,
 
-                // ❌ এখানে আর content পাঠাচ্ছি না, কারণ Post model/table এ কলাম নেই
-                // 'content'          => $data['content'] ?? null,
+                
+                 'content'          => $data['content'] ?? null,
 
                 'status'           => $data['status'],
                 'is_breaking'      => $data['is_breaking'] ?? false,
@@ -128,8 +128,8 @@ class PostController extends Controller
                 $tagIds = [];
 
                     $tag = Tag::create(
-                        ['name' => $data['content']],
-                        ['slug' => $data['content']]
+                        ['name' => $data['tags']],
+                        ['slug' => $data['tags']]
                     );
                 foreach ($tagNames as $tagName) {
 

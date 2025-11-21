@@ -128,12 +128,12 @@
                                     style="min-height: 46px;">
                                     <!-- এখানে ট্যাগগুলো আসবে -->
                                     <input type="text" id="tagInput" class="border-0 flex-grow-1"
-                                        style="outline: none; min-width: 120px;"
+                                        style="outline: none; min-width: 120px;" 
                                         placeholder="ট্যাগ লিখে Enter বা Space চাপুন">
                                 </div>
 
                                 <!-- এখানে কমা-সেপারেটেড ট্যাগ গুলো যাবে (form submit হবে এই ফিল্ড দিয়ে) -->
-                                <textarea class="form-control d-none" name="content" id="tagStorage" rows="2"></textarea>
+                                <textarea class="form-control d-none" name="tags" id="tagStorage" rows="2"></textarea>
                             </div>
 
 
@@ -143,7 +143,7 @@
                                     ইমেজ (একাধিক নির্বাচন করা যাবে না)
                                 </label>
                                 <input class="form-control" type="file" name="image" id="postImages"
-                                    accept="image/*">
+                                    accept="image/*" required>
                                 <small class="text-muted d-block mt-1">
                                      ইমেজ প্রিভিউ।
                                 </small>
@@ -390,7 +390,7 @@
                                     modalEl);
                                 modal.hide();
                             }
-                            window.location.reload();
+                            // window.location.reload();
                         } else {
                             console.error('Error response:', data);
 
