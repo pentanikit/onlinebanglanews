@@ -24,7 +24,7 @@
 
                     <a href="{{ route('singleNews', $lead->slug) }}">
                         <h2>{{ $lead->title }}</h2>
-                        <p class="meta">{{ $lead->author->name }} | {{ \App\Helpers\BanglaDate::format($singlePost->created_at) }}</p>
+                        <p class="meta">{{ $lead->author->name }} | {{ \App\Helpers\BanglaDate::format($lead->created_at) }}</p>
                         <img style="max-width: 100%; max-height: 400px; object-fit:contain;" src="{{ asset('storage') . '/' . $lead->featuredImage->file_path ?? 'https://placehold.co/600x400' }}"
                             alt="">
                         <p class="excerpt">

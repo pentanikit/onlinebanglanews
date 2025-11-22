@@ -2,7 +2,7 @@
 
           <div class="section-title">
               <h2>{{ $catTitle }}</h2>
-              <a href="{{ route('singleNews', $catTitle) }}">সব খবর »</a>
+              <a href="{{ route('categorywisenews', $catTitle) }}">সব খবর »</a>
           </div>
       <div class="news-grid">
           @forelse ($categoriesNews as $item)
