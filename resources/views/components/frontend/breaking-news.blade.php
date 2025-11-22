@@ -43,7 +43,7 @@
                     </p>
 
                     <p>
-                        {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 250) }}
+                        {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 150) }}
                     </p>
                 </article>
             </a>

@@ -13,7 +13,7 @@
                           style="width: 100%; height: 220px; object-fit:fill;" alt="{{ $item->title ?? 'Lead News' }}">
                       <h3>{{ $item->title }}</h3>
                       <p class="meta">{{ $item->author->name }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}</p>
-                      <p>{{ \Illuminate\Support\Str::limit($item->excerpt, 250) }}</p>
+                      <p>{{ \Illuminate\Support\Str::limit($item->excerpt, 220) }}</p>
                   </article>
               </a>
 
