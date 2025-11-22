@@ -9,13 +9,14 @@
     <article class="lead-news">
         <a href="{{ route('singleNews', $lead->slug) }}">
             <img src="{{ asset('storage') . '/' . $lead->featuredImage->file_path ?? '' }}"
-                style="width: 100%; height: auto; object-fit:cover;" alt="{{ $lead->title ?? 'Lead News' }}">
+                style="width: 100%; max-height: 400px; object-fit:contain;" alt="{{ $lead->title ?? 'Lead News' }}">
 
             <h2>{{ $lead->title }}</h2>
 
             <p class="meta">
                 {{ $lead->author->name ?? 'স্টাফ রিপোর্টার' }} |
-                {{ $lead->published_at?->format('d F Y') }}
+                {{ \App\Helpers\BanglaDate::format($lead->created_at) }}
+
             </p>
 
             <p class="excerpt">
@@ -37,11 +38,12 @@
                     <h3>{{ $item->title }}</h3>
 
                     <p class="meta">
-                        {{ $item->author->name ?? 'স্টাফ রিপোর্টার' }}
+                        {{ $item->author->name ?? 'স্টাফ রিপোর্টার' }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}
+
                     </p>
 
                     <p>
-                        {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}
+                        {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 250) }}
                     </p>
                 </article>
             </a>

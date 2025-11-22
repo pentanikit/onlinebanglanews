@@ -16,7 +16,7 @@ class BreakingNews extends Component
 
     public function __construct()
     {
-        $this->breaking = Post::where('is_breaking', true)->paginate(10);
+        $this->breaking = Post::where('is_breaking', true)->latest()->take(4)->get();
     }
 
     /**

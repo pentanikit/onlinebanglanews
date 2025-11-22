@@ -27,6 +27,7 @@ class CategoryNews extends Component
         // Load posts for this category
         $this->categoriesNews = Post::where('category_id', $category->id)
             ->latest()
+            ->take(3)
             ->get();
     }
 

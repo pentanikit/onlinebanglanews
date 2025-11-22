@@ -6,9 +6,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="icon" href="{{ asset('storage').'/'.'uploads/media/o4z8uqN8U4mikSk1QbhY0WQxRROEymTee9J3mEue.png' }}">
-  <!-- Google Font (optional) --
-    >
+  <!-- Google Font (optional) -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+          .news-list {
+              list-style: disc;
+              /* keeps native bullets */
+              padding-left: 1.3rem;
+              /* spacing for bullets */
+              margin: 0;
+              overflow-y: scroll;
+              
+              max-height: 550px;
+          }
+
+          .news-list li {
+              display: flex;
+              align-items: center;
+              /* vertical center image + title */
+              gap: 10px;
+              /* space between image and title */
+              margin-bottom: 1rem;
+              /* spacing between list items */
+          }
+
+          .news-list li img {
+              width: 60px;
+              height: 40px;
+              object-fit: cover;
+              /* ensures image fills the box */
+              border-radius: 4px;
+              /* optional rounded corners */
+              flex-shrink: 0;
+              /* prevent image from shrinking */
+          }
+
+          .news-list li span {
+              font-weight: 600;
+              font-size: 0.8rem;
+              line-height: 1.2;
+              /* optional: truncate long titles */
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+          }
+  </style>
 </head>
 <body>
   <!-- Top Bar -->

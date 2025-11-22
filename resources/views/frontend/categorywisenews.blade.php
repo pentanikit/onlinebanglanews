@@ -21,12 +21,17 @@
             <main class="content">
                 <!-- Featured of this category -->
                 <article class="lead-news">
-                    <img src="{{ asset('storage') . '/' . $lead->featuredImage->file_path }}" alt="">
-                    <h2>{{ $lead->title }}</h2>
-                    <p class="meta">{{ $lead->author->name }} | ১১ নভেম্বর ২০২৫</p>
-                    <p class="excerpt">
-                        {{ $lead->excerpt }}
-                    </p>
+
+                    <a href="{{ route('singleNews', $lead->slug) }}">
+                        <h2>{{ $lead->title }}</h2>
+                        <p class="meta">{{ $lead->author->name }} | {{ \App\Helpers\BanglaDate::format($singlePost->created_at) }}</p>
+                        <img style="max-width: 100%; max-height: 400px; object-fit:contain;" src="{{ asset('storage') . '/' . $lead->featuredImage->file_path ?? 'https://placehold.co/600x400' }}"
+                            alt="">
+                        <p class="excerpt">
+                            {{ $lead->excerpt }}
+                        </p>
+                    </a>
+
                 </article>
 
                 <!-- Category listing -->
@@ -34,9 +39,17 @@
 
                     @foreach ($others as $item)
                         <article class="cat-item">
-                            <h3><a href="{{ route('singleNews', $item->slug) }}">{{ $item->title }}</a></h3>
-                            <p class="meta">{{ $item->author->name }} | ১১ নভেম্বর ২০২৫</p>
-                            <p>{{ $item->excerpt }}</p>
+                            <a href="{{ route('singleNews', $lead->slug) }}">
+                                <h3 class="p-2"><a href="{{ route('singleNews', $item->slug) }}">{{ $item->title }}</a></h3>
+
+                                <p class="meta py-2">{{ $item->author->name }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}
+</p>
+                                <img style="max-width:440px; max-height: 240px; object-fit:contain;"
+                                    src="{{ asset('storage') . '/' . $item->featuredImage->file_path ?? 'https://placehold.co/600x400' }}"
+                                    alt="">
+                                <p>{{ \Illuminate\Support\Str::limit($item->excerpt, 250) }}</p>
+                            </a>
+
                         </article>
                     @endforeach
                 </div>
