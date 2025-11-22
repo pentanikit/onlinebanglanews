@@ -3,9 +3,11 @@
           <ul class="news-list">
               @forelse ($latest as $item)
                   <li>
+                    
                       <img src="{{ $item->featuredImage->file_path ? asset('storage/' . $item->featuredImage->file_path) : 'https://placehold.co/60x40' }}"
                           alt="{{ $item->title }}">
-                      <span>{{ \Illuminate\Support\Str::limit($item->title, 20) }}</span>
+                      <span><a href="{{ route('singleNews', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 20) }}</a></span>
+                    
                   </li>
 
               @empty

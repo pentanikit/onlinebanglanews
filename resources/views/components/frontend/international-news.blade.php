@@ -20,6 +20,7 @@
 
 
              <article class="lead-news">
+                <a href="{{ route('singleNews', $lead->slug) }}">
 
                  <img src="{{ asset('storage') . '/' . $lead->featuredImage->file_path }}"
                      style="width: 100%; max-height: 240px; object-fit:contain;" alt="" srcset="">
@@ -29,8 +30,9 @@
 
                  <p class="meta">{{ $lead->author->name }} | {{ \App\Helpers\BanglaDate::format($lead->created_at) }}</p>
                  <p class="excerpt">
-                      {{ $lead->excerpt ?? Str::limit(strip_tags($lead->excerpt), 250) }}
+                      {{ $lead->excerpt ?? Str::limit(strip_tags($lead->excerpt), 220) }}
                  </p>
+                </a>
              </article>
 
 
@@ -41,6 +43,7 @@
              <div class="category-list">
 
                  <article class="cat-item">
+                    <a href="{{ route('singleNews', $second->slug) }}"></a>
                      <img src="{{ asset('storage') . '/' . $second->featuredImage->file_path }}"
                          style="width: 100%; height: 240px;" alt="" srcset="">
                      <h3><a href="{{ route('singleNews', $second->slug) }}">{{ $second->title }}</a></h3>
@@ -65,9 +68,11 @@
                  <ul class="news-list">
                      @forelse ($others as $item)
                          <li>
+                            
                              <img src="{{ $item->featuredImage->file_path ? asset('storage/' . $item->featuredImage->file_path) : 'https://placehold.co/60x40' }}"
                                  alt="{{ $item->title }}">
-                             <span>{{ \Illuminate\Support\Str::limit($item->title, 20) }}</span>
+                             <span><a href="{{ route('singleNews', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 20) }}</a></span>
+                            
                          </li>
                      @empty
                          <p>এই ক্যাটাগরিতে কোনো খবর পাওয়া যায়নি।</p>

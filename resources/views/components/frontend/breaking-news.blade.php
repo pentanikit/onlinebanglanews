@@ -20,7 +20,7 @@
             </p>
 
             <p class="excerpt">
-                {{ $lead->excerpt ?? Str::limit(strip_tags($lead->excerpt), 150) }}
+                {{ $lead->excerpt ?? Str::limit(strip_tags($lead->excerpt), 120) }}
             </p>
         </a>
 
@@ -30,24 +30,24 @@
     @if ($others->isNotEmpty())
         <div class="news-grid">
             @foreach ($others as $item)
-            <a href="{{ route('singleNews', $item->slug) }}">
-                 <article class="news-card" style="height: 440px;">
-                    <img src="{{ asset('storage') . '/' . $item->featuredImage->file_path ?? '' }}"
-                        style="width: 100%; height: auto; object-fit:cover;"
-                        alt="{{ $lead->title ?? 'Lead News' }}">
-                    <h3>{{ $item->title }}</h3>
+                <article class="news-card">
+                    <a href="{{ route('singleNews', $item->slug) }}">
+                        <img src="{{ asset('storage') . '/' . $item->featuredImage->file_path ?? '' }}"
+                            style="width: 100%; height: auto; object-fit:cover;"
+                            alt="{{ $lead->title ?? 'Lead News' }}">
+                        <h3>{{ $item->title }}</h3>
 
-                    <p class="meta">
-                        {{ $item->author->name ?? 'স্টাফ রিপোর্টার' }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}
+                        <p class="meta">
+                            {{ $item->author->name ?? 'স্টাফ রিপোর্টার' }} |
+                            {{ \App\Helpers\BanglaDate::format($item->created_at) }}
 
-                    </p>
+                        </p>
 
-                    <p>
-                        {{ $item->excerpt ?? Str::limit(strip_tags($item->excerpt), 150) }}
-                    </p>
+                        <p>
+                            {{ $item->excerpt ?? Str::limit(strip_tags($item->excerpt), 80) }}
+                        </p>
+                    </a>
                 </article>
-            </a>
-               
             @endforeach
         </div>
     @endif
