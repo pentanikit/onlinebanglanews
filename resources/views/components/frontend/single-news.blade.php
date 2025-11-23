@@ -4,7 +4,7 @@
 
         <article class="single-post">
             <h1>{{ $singlePost->title }}</h1>
-            <p class="single-meta">{{ $singlePost->author->name ?? 'স্টাফ রিপোর্টার' }} | {{ \App\Helpers\BanglaDate::format($singlePost->created_at) }}</p>
+            <p class="single-meta" style="font-size: 10px;">{{ $singlePost->author->name ?? 'স্টাফ রিপোর্টার' }} | {{ \App\Helpers\BanglaDate::format($singlePost->created_at) }}</p>
             <img src="{{ asset('storage') . '/' . $singlePost->featuredImage->file_path }}"
                 style="max-width: 100%; height:400px;" class="single-cover" alt="">
 

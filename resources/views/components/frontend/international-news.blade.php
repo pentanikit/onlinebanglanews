@@ -28,7 +28,7 @@
 
 
 
-                 <p class="meta">{{ $lead->author->name }} | {{ \App\Helpers\BanglaDate::format($lead->created_at) }}</p>
+                 <p class="meta" style="font-size: 10px;">{{ $lead->author->name }} | {{ \App\Helpers\BanglaDate::format($lead->created_at) }}</p>
                  <p class="excerpt">
                       {{ $lead->excerpt ?? Str::limit(strip_tags($lead->excerpt), 220) }}
                  </p>

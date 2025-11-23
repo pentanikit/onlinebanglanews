@@ -37,14 +37,14 @@
                             alt="{{ $lead->title ?? 'Lead News' }}">
                         <h3>{{ $item->title }}</h3>
 
-                        <p class="meta">
+                        <p class="meta" style="font-size: 10px;">
                             {{ $item->author->name ?? 'স্টাফ রিপোর্টার' }} |
                             {{ \App\Helpers\BanglaDate::format($item->created_at) }}
 
                         </p>
 
                         <p>
-                            {{ $item->excerpt ?? Str::limit(strip_tags($item->excerpt), 80) }}
+                            {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 80) }}
                         </p>
                     </a>
                 </article>

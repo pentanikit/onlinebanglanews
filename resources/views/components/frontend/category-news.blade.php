@@ -13,7 +13,7 @@
                        <img src="{{ asset('storage') . '/' . $item->featuredImage->file_path ?? '' }}"
                           style="width: 100%; height: 220px; object-fit:fill;" alt="{{ $item->title ?? 'Lead News' }}">
                       <h3>{{ $item->title }}</h3>
-                      <p class="meta">{{ $item->author->name }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}</p>
+                      <p class="meta" style="font-size: 10px;">{{ $item->author->name }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}</p>
                       <p>{{ \Illuminate\Support\Str::limit($item->excerpt, 220) }}</p>
                     </a>
                   </article>

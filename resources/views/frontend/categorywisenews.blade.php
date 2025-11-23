@@ -42,7 +42,7 @@
                             <a href="{{ route('singleNews', $lead->slug) }}">
                                 <h3 class="p-2"><a href="{{ route('singleNews', $item->slug) }}">{{ $item->title }}</a></h3>
 
-                                <p class="meta py-2">{{ $item->author->name }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}
+                                <p class="meta py-2" style="font-size: 8px;">{{ $item->author->name }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}
 </p>
                                 <img style="max-width:440px; max-height: 240px; object-fit:contain;"
                                     src="{{ asset('storage') . '/' . $item->featuredImage->file_path ?? 'https://placehold.co/600x400' }}"
