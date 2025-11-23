@@ -12,6 +12,7 @@ use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdBlockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +108,9 @@ Route::get('category/{slug}', [PostController::class, 'categoryNews'])->name('ca
 
 //single news
 Route::get('news/{slug}', [PostController::class, 'show'])->name('singleNews');
+
+//ads route
+Route::post('/ads/store', [AdBlockController::class, 'store'])->name('ads.store');
 
 
 /*

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class MediaController extends Controller
 {
@@ -26,7 +27,6 @@ class MediaController extends Controller
 
 public function store(Request $request)
 {
-   
     $fieldName = null;
 
     if ($request->hasFile('logo')) {
@@ -34,12 +34,10 @@ public function store(Request $request)
     } elseif ($request->hasFile('favicon')) {
         $fieldName = 'favicon';
     } elseif ($request->hasFile('file')) {
-       
         $fieldName = 'file';
     }
 
     if (!$fieldName) {
-        
         if ($request->expectsJson() || $request->ajax()) {
             return response()->json([
                 'success' => false,
@@ -50,30 +48,48 @@ public function store(Request $request)
         return back()->withErrors(['file' => 'কোনো ফাইল পাওয়া যায়নি।']);
     }
 
-    
     $validated = $request->validate([
         $fieldName  => 'required|file|mimes:jpg,jpeg,png,webp,gif,svg,ico|max:5120',
         'alt_text'  => 'nullable|string|max:255',
+        'type'      => 'nullable|string|max:255', // logo, favicon, etc.
     ]);
 
+    $type = $request->input('type'); // 'logo' / 'favicon' / others
+
+    // If uploading logo or favicon, remove old one first
+    if (in_array($type, ['logo', 'favicon'])) {
+        $existing = Media::where('alt_text', $type)->first();
+
+        if ($existing) {
+            if (!empty($existing->file_path) && Storage::disk('public')->exists($existing->file_path)) {
+                Storage::disk('public')->delete($existing->file_path);
+            }
+
+            $existing->delete();
+        }
+
+        // 🔄 Clear cache so next call to logo()/favicon() gets fresh data
+        Cache::forget("media_setting_{$type}");
+    }
+
+    // Upload new file
     $file = $request->file($fieldName);
 
-    
-    $path = $file->store('uploads/media', 'public'); // storage/app/public/uploads/media
+    $path = $file->store('uploads/media', 'public');
 
     $media = Media::create([
         'file_name'   => $file->getClientOriginalName(),
-        'file_path'   => $path, // public path এর জন্য
+        'file_path'   => $path,
         'mime_type'   => $file->getMimeType(),
         'file_size'   => $file->getSize(),
-        'alt_text'    =>  $request->input('type'),
+        'alt_text'    => $type ?? $request->input('alt_text'),
         'uploaded_by' => $request->user()?->id ?? 1,
     ]);
 
-   
-    $type = $request->input('type'); // 'logo' or 'favicon'
-
-   
+    // Clear cache again just in case (after create)
+    if (in_array($type, ['logo', 'favicon'])) {
+        Cache::forget("media_setting_{$type}");
+    }
 
     $message = 'মিডিয়া সফলভাবে আপলোড হয়েছে।';
     if ($type === 'logo') {
@@ -88,16 +104,15 @@ public function store(Request $request)
         'data'    => $media,
     ];
 
-    
     if ($request->expectsJson() || $request->ajax()) {
         return response()->json($responseData, 201);
     }
 
-   
     return redirect()
         ->back()
         ->with('success', $message);
 }
+
 
     public function show(Media $media, Request $request)
     {
