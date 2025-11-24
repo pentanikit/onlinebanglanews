@@ -20,7 +20,7 @@ class JobNews extends Component
     {
         $cats = Category::where('slug', 'খেলা')->firstOrFail();
         $this->catTitle = $cats->name ?? $cats->title ?? $cats->slug;
-        $this->jobNews = Post::where('status', 'published')->where('category_id', $cats->id)->latest()->paginate(4);
+        $this->jobNews = Post::where('status', 'published')->where('category_id', $cats->id)->latest()->paginate(6);
     }
 
     /**

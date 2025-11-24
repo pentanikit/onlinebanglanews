@@ -1,4 +1,4 @@
-      <div class="widget" style="max-height: 300px;">
+      <div class="widget" >
           <h3>চাকরি </h3>
           <ul class="news-list">
               @forelse ($jobNews as $item)
