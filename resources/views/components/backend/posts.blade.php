@@ -41,17 +41,36 @@
                         <tbody id="postsTbody">
                             @forelse ($posts as $item)
                             <tr>
-                                <td><img style="width: 100px; height:100px;" src="{{ asset('storage').'/'.$item->featuredImage->file_path }}" alt="" srcset=""> {{ $item->title }}</td>
+                                <td><img style="width: 100px; height:100px;" src="{{ asset('storage').'/'.$item->featuredImage->file_path ?? '' }}" alt="" srcset=""> {{ $item->title }}</td>
                                 <td>{{ $item->category->name ?? 'Null' }}</td>
                                 <td>{{ $item->tags[0]->name ?? 'Null' }}</td>
                                 <td>{{ $item->status }}</td>
                                 <td>{{ $item->created_at }}</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon" title="Delete"><i class="fas fa-trash"></i></button>
-                                    </div>
-                                </td>
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-1">
+                                    {{-- Edit button --}}
+                                    <a href="{{ route('posts.edit', $item->id) }}" 
+                                    class="btn btn-sm btn-outline-primary" 
+                                    title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    {{-- Delete form --}}
+                                    <form action="{{ route('posts.destroy', $item->id) }}" 
+                                        method="POST"
+                                        onsubmit="return confirm('আপনি কি নিশ্চিত এই পোস্টটি ডিলিট করতে চান?');"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="btn btn-sm btn-outline-danger" 
+                                                title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+
                             </tr>
 
                             @empty

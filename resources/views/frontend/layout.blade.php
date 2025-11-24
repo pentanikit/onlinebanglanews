@@ -54,7 +54,7 @@
             text-overflow: ellipsis;
         }
         .widget.ad-widget {
-          width: 300px;
+          width: 100%;
           height: 250px;
           overflow: hidden;        /* hide cropped parts */
         }
@@ -98,7 +98,7 @@
             <p>কারিগরি সহায়তায়: Pentanik IT</p>
         </div>
     </footer>
-    <script>
+    {{-- <script>
         function banglaClock() {
             const options = {
                 timeZone: 'Asia/Dhaka',
@@ -136,7 +136,7 @@
         // Initial run + update every second
         banglaClock();
         setInterval(banglaClock, 1000);
-    </script>
+    </script> --}}
 </body>
 
 </html>

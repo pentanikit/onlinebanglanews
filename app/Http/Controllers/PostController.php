@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -173,10 +174,12 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        $categories = Category::orderBy('name')->get();
-        $tags = Tag::orderBy('name')->get();
-        $post->load('tags');
-        return view('posts.edit', compact('post', 'categories', 'tags'));
+        $categories = Category::all();
+
+        
+        $tagString = $post->tags->pluck('name')->implode(',');
+
+        return view('backend.edit-post', compact('post', 'categories', 'tagString'));
     }
 
     public function update(Request $request, Post $post)
@@ -185,33 +188,88 @@ class PostController extends Controller
             'category_id'       => 'nullable|exists:categories,id',
             'featured_image_id' => 'nullable|exists:media,id',
             'title'             => 'required|string|max:255',
-            'slug'              => 'nullable|string|max:255|unique:posts,slug,' . $post->id,
+            'slug'              => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('posts', 'slug')->ignore($post->id),
+            ],
             'subheading'        => 'nullable|string|max:255',
             'excerpt'           => 'nullable|string',
+
+            // content ফিল্ড 그대로 রাখছি
             'content'           => 'nullable|string',
+
             'status'            => ['required', Rule::in(['draft', 'pending', 'published', 'archived'])],
             'is_breaking'       => 'sometimes|boolean',
             'is_featured'       => 'sometimes|boolean',
             'published_at'      => 'nullable|date',
             'meta_title'        => 'nullable|string|max:255',
             'meta_description'  => 'nullable|string',
-            'tags'              => 'nullable|array',
-            'tags.*'            => 'integer|exists:tags,id',
+
+            // ট্যাগগুলো কমা সেপারেটেড string
+            'tags'              => 'nullable|string',
+
+            'image'             => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
         ]);
 
+        $authorId = $post->author_id ?? ($request->user()?->id ?? 1);
+
+        // slug খালি থাকলে title থেকে বানানো
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['title']);
         }
 
-        DB::transaction(function () use ($post, $data) {
+        $uploadedImage = $request->file('image');
+
+        // tags string কে ভেঙে নেওয়া (seo,marketing,tv guide)
+        $tagNames = collect();
+
+        if (!empty($data['tags'])) {
+            $tagNames = collect(explode(',', $data['tags']))
+                ->map(fn ($tag) => trim($tag))
+                ->filter()
+                ->unique();
+        }
+
+        $post = DB::transaction(function () use ($data, $authorId, $uploadedImage, $tagNames, $post) {
+            
+            $featuredMediaId = $data['featured_image_id'] ?? $post->featured_image_id;
+
+            
+            if ($uploadedImage) {
+                
+                if ($post->featuredImage) {
+                    Storage::disk('public')->delete($post->featuredImage->file_path);
+                    $post->featuredImage->delete();
+                }
+
+                $path = $uploadedImage->store('posts', 'public');
+
+                $media = Media::create([
+                    'file_name'   => $uploadedImage->getClientOriginalName(),
+                    'file_path'   => $path,
+                    'mime_type'   => $uploadedImage->getClientMimeType(),
+                    'file_size'   => $uploadedImage->getSize(),
+                    'alt_text'    => $data['meta_title'] ?? $data['title'] ?? null,
+                    'uploaded_by' => $authorId,
+                ]);
+
+                $featuredMediaId = $media->id;
+            }
+
+            // 2) Post update
             $post->update([
+                'author_id'        => $authorId,
                 'category_id'      => $data['category_id'] ?? null,
-                'featured_image_id'=> $data['featured_image_id'] ?? null,
+                'featured_image_id'=> $featuredMediaId,
                 'title'            => $data['title'],
                 'slug'             => $data['slug'],
                 'subheading'       => $data['subheading'] ?? null,
                 'excerpt'          => $data['excerpt'] ?? null,
+
                 'content'          => $data['content'] ?? null,
+
                 'status'           => $data['status'],
                 'is_breaking'      => $data['is_breaking'] ?? false,
                 'is_featured'      => $data['is_featured'] ?? false,
@@ -220,25 +278,55 @@ class PostController extends Controller
                 'meta_description' => $data['meta_description'] ?? null,
             ]);
 
-            $post->tags()->sync($data['tags'] ?? []);
+           
+            if ($tagNames->isNotEmpty()) {
+                $tagIds = [];
+
+                foreach ($tagNames as $tagName) {
+                    $tag = Tag::firstOrCreate(
+                        ['slug' => Str::slug($tagName)],
+                        ['name' => $tagName]
+                    );
+
+                    $tagIds[] = $tag->id;
+                }
+
+               
+                $post->tags()->sync($tagIds);
+            } else {
+               
+                $post->tags()->sync([]);
+            }
+
+            return $post;
         });
 
         if ($request->expectsJson()) {
-            return response()->json(['success' => true, 'data' => $post->load('tags')]);
+            return response()->json([
+                'success' => true,
+                'data'    => $post->load('tags', 'featuredImage'),
+            ], 200);
         }
 
-        return redirect()->route('posts.index')->with('success', 'Post updated.');
+        return redirect()
+            ->back()
+            ->with('success', 'Post updated.');
     }
 
     public function destroy(Request $request, Post $post)
     {
+           
+        if ($post->featuredImage) {
+            \Storage::disk('public')->delete($post->featuredImage->file_path);
+            $post->featuredImage()->delete();
+        }
         $post->delete();
 
         if ($request->expectsJson()) {
             return response()->json(['success' => true]);
         }
 
-        return redirect()->route('posts.index')->with('success', 'Post deleted.');
+        return redirect()->back()->with('success', 'Post deleted.');
     }
 
 

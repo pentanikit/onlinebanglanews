@@ -10,7 +10,7 @@
       {{-- bangladesh news --}}
       <x-frontend.category-news slug="বাংলাদেশ"/>
        <x-frontend.international-news slug="আন্তর্জাতিক"/>
-     
+     <x-frontend.business-news />
     </main>
 
     <!-- Right Sidebar -->
@@ -33,12 +33,16 @@
         </div>
       @endif
 
+      <x-frontend.sport-news />
+
       @php $ad = ad2('home_sidebar'); @endphp
       @if($ad && $ad->image)
         <div class="widget ad-widget">
           <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 2">
         </div>
       @endif
+
+      <x-frontend.celeb-news />
 
       @php $ad = ad3('home_sidebar'); @endphp
       @if($ad && $ad->image)

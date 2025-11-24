@@ -23,7 +23,7 @@
                 <a href="{{ route('singleNews', $lead->slug) }}">
 
                  <img src="{{ asset('storage') . '/' . $lead->featuredImage->file_path }}"
-                     style="width: 100%; max-height: 240px; object-fit:contain;" alt="" srcset="">
+                     style="width: 100%; height: 240px; object-fit:contain;" alt="" srcset="">
                  <h2>{{ $lead->title }}</h2>
 
 
@@ -42,7 +42,7 @@
              <!-- Category listing -->
              <div class="category-list">
 
-                 <article class="cat-item">
+                 <article class="cat-item" >
                     <a href="{{ route('singleNews', $second->slug) }}"></a>
                      <img src="{{ asset('storage') . '/' . $second->featuredImage->file_path }}"
                          style="width: 100%; height: 240px;" alt="" srcset="">
@@ -63,7 +63,7 @@
 
          <!-- Sidebar -->
          <aside class="sidebar">
-             <div class="widget">
+             <div class="widget" style="width: 100%; height: 500px;">
                  <h3>আরো দেখুন </h3>
                  <ul class="news-list">
                      @forelse ($others as $item)

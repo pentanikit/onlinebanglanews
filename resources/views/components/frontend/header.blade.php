@@ -176,7 +176,7 @@
                         </div>
 
                         <div class="header-latest-text-wrap">
-                            <span class="header-latest-icon"></span>
+                            <span class="header-latest">|</span>
                             <span class="header-latest-text">
                                 {{ $post->title }}
                             </span>

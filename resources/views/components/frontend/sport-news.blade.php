@@ -1,0 +1,21 @@
+      <div class="widget">
+          <h3>খেলা </h3>
+          <ul class="news-list">
+              @forelse ($sportsNews as $item)
+                  <li>
+                    
+                      <img src="{{ $item->featuredImage->file_path ? asset('storage/' . $item->featuredImage->file_path) : 'https://placehold.co/60x40' }}"
+                          alt="{{ $item->title }}">
+                      <span><a href="{{ route('singleNews', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 32) }}</a></span>
+                    
+                  </li>
+
+              @empty
+                  <p>এই ক্যাটাগরিতে কোনো খবর পাওয়া যায়নি।</p>
+              @endforelse
+
+
+          </ul>
+      </div>
+
+ 

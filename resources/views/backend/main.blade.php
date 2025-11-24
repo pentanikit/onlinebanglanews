@@ -87,6 +87,7 @@
 <x-backend.navbar />
 <div class="container-fluid">
     <div class="row content-wrap">
+        @yield('content')
 
         <x-backend.sidebar />
 
@@ -96,6 +97,8 @@
             <x-backend.logos />
             <!-- Posts -->
             <x-backend.posts />
+
+
 
             <!-- Categories -->
             <x-backend.categories />

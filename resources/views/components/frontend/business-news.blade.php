@@ -1,9 +1,14 @@
-@if ($breaking->isNotEmpty())
+@if ($businessNews->isNotEmpty())
 
     @php
-        $lead = $breaking->first(); // প্রথম নিউজ
-        $others = $breaking->skip(1); // বাকি সব নিউজ
+        $lead = $businessNews->first(); // প্রথম নিউজ
+        $others = $businessNews->skip(1); // বাকি সব নিউজ
     @endphp
+
+    <div class="section-title">
+         <h2>{{ $catTitle }}</h2>
+         <a href="{{ route('categorywisenews', $catTitle) }}">সব খবর »</a>
+     </div>
 
     {{-- Lead news --}}
     <article class="lead-news">
@@ -53,5 +58,5 @@
     @endif
 @else
     {{-- যদি কোনো breaking news না থাকে --}}
-    <p>কোনো ব্রেকিং নিউজ পাওয়া যায়নি।</p>
+    <p>কোনো নিউজ পাওয়া যায়নি।</p>
 @endif
