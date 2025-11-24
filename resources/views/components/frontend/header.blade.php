@@ -161,7 +161,7 @@
 
             @foreach($latestPosts as $post)
                 <div class="header-latest-item">
-                    <a href="{{ route('singleNews', $post->id) }}" class="header-latest-link">
+                    <a href="{{ route('singleNews', $post->slug) }}" class="header-latest-link">
                         <div class="header-latest-thumb">
                             @php
                                 // adjust according to your relationship field (url/path/image)

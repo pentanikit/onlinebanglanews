@@ -20,7 +20,7 @@ class BusinessNews extends Component
     {
         $cats = Category::where('slug', 'business')->firstOrFail();
         $this->catTitle = $cats->name ?? $cats->title ?? $cats->slug;
-        $this->businessNews = Post::where('category_id', $cats->id)->latest()->paginate(10);
+        $this->businessNews = Post::where('category_id', $cats->id)->latest()->take(4)->get();
     }
 
     /**
