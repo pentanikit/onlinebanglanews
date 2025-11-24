@@ -81,9 +81,12 @@
 
                  </ul>
              </div>
-             <div class="widget ad-widget">
-                 <span>300x250 AD</span>
-             </div>
+                   @php $ad = ad6('home_sidebar'); @endphp
+                    @if($ad && $ad->image)
+                        <div class="widget ad-widget">
+                        <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 6">
+                        </div>
+                    @endif
               <x-frontend.health-news />
          </aside>
         
