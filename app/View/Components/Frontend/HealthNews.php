@@ -8,19 +8,19 @@ use Illuminate\View\Component;
 use App\Models\Post;
 use App\Models\Category;
 
-class BusinessNews extends Component
+class HealthNews extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $businessNews;
+    public $healthNews;
     public $cats;
     public $catTitle;
     public function __construct()
     {
-        $cats = Category::where('slug', 'business')->firstOrFail();
+        $cats = Category::where('slug', 'খেলা')->firstOrFail();
         $this->catTitle = $cats->name ?? $cats->title ?? $cats->slug;
-        $this->businessNews = Post::where('category_id', $cats->id)->where('status', 'published')->latest()->take(4)->get();
+        $this->healthNews = Post::where('status', 'published')->where('category_id', $cats->id)->latest()->paginate(6);
     }
 
     /**
@@ -28,6 +28,6 @@ class BusinessNews extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.frontend.business-news');
+        return view('components.frontend.health-news');
     }
 }

@@ -17,7 +17,7 @@ class CelebNews extends Component
     {
         $cats = Category::where('slug', 'বিনোদন')->firstOrFail();
         $this->catTitle = $cats->name ?? $cats->title ?? $cats->slug;
-        $this->celebNews = Post::where('category_id', $cats->id)->latest()->paginate(10);
+        $this->celebNews = Post::where('category_id', $cats->id)->where('status', 'published')->latest()->paginate(10);
     }
 
     /**

@@ -21,7 +21,7 @@ class InternationalNews extends Component
         $cat = Category::where('slug', $slug)->firstOrFail();
         $this->catTitle = $cat->name ?? $cat->title ?? $cat->slug;
         
-        $this->international =  Post::where('category_id', $cat->id)->with(['author', 'featuredImage'])->latest()->paginate();
+        $this->international =  Post::where('category_id', $cat->id)->where('status', 'published')->with(['author', 'featuredImage'])->latest()->paginate();
     }
 
     /**

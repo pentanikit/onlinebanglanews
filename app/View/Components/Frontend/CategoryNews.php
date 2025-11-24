@@ -25,7 +25,7 @@ class CategoryNews extends Component
         $this->catTitle = $category->name ?? $category->title ?? $category->slug;
 
         // Load posts for this category
-        $this->categoriesNews = Post::where('category_id', $category->id)
+        $this->categoriesNews = Post::where('category_id', $category->id)->where('status', 'published')
             ->latest()
             ->take(3)
             ->get();

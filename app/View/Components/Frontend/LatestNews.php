@@ -16,7 +16,7 @@ class LatestNews extends Component
 
     public function __construct()
     {
-        $this->latest = Post::latest()->paginate(10);
+        $this->latest = Post::where('status', 'published')->latest()->paginate(10);
     }
 
     /**

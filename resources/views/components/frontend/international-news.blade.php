@@ -84,7 +84,9 @@
              <div class="widget ad-widget">
                  <span>300x250 AD</span>
              </div>
+              <x-frontend.health-news />
          </aside>
+        
      </div>
  @else
      <p>কোনো নিউজ পাওয়া যায়নি।</p>

@@ -153,7 +153,7 @@
             @php
                 use App\Models\Post;
 
-                $latestPosts = Post::with('featuredImage')
+                $latestPosts = Post::where('status', 'published')->with('featuredImage')
                     ->latest()
                     ->take(4)
                     ->get();

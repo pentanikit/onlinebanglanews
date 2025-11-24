@@ -21,7 +21,7 @@ class SportNews extends Component
     {
         $cats = Category::where('slug', 'খেলা')->firstOrFail();
         $this->catTitle = $cats->name ?? $cats->title ?? $cats->slug;
-        $this->sportsNews = Post::where('category_id', $cats->id)->latest()->paginate(10);
+        $this->sportsNews = Post::where('status', 'published')->where('category_id', $cats->id)->latest()->paginate(10);
     }
 
     /**

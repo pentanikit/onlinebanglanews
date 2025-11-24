@@ -51,6 +51,8 @@
         </div>
       @endif
 
+      <x-frontend.job-news />
+
       @php $ad = ad4('home_sidebar'); @endphp
       @if($ad && $ad->image)
         <div class="widget ad-widget">
