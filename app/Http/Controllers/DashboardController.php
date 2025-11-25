@@ -10,5 +10,20 @@ class DashboardController extends Controller
         return view('backend.main');
     }
 
+    public function site_icons(){
+        return view('backend.icons');
+    }
+
+    public function posts(){
+        return view('backend.posts');
+    }
+
+    public function categories(){
+        return view('backend.categories');
+    }
+
+    public function medias(){
+        return view('backend.medias');
+    }
 
 }

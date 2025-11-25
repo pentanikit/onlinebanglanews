@@ -1,4 +1,4 @@
 @extends('backend.layout')
 @section('content')
-    <x-backend.dashboard />
+     <x-backend.logos />
 @endsection

@@ -1,5 +1,5 @@
         <!-- Settings -->
-        <section id="view-settings" class="view d-none">
+        <section id="view-settings" class="view">
           <div class="card">
             <div class="card-header"><h5 class="mb-0">সেটিংস</h5></div>
             <div class="card-body">

@@ -1,5 +1,5 @@
         <!-- Users -->
-        <section id="view-users" class="view d-none">
+        <section id="view-users" class="view">
           <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">ইউজার ম্যানেজমেন্ট</h5>

@@ -1,5 +1,5 @@
         <!-- Menus -->
-        <section id="view-menus" class="view d-none">
+        <section id="view-menus" class="view">
           <div class="card">
             <div class="card-body">
               <div class="row g-4">

@@ -1,5 +1,5 @@
 <!-- Media -->
-<section id="view-logos" class="view d-none">
+<section id="view-logos" class="view">
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="mb-0">মিডিয়া লাইব্রেরি</h5>

@@ -42,7 +42,7 @@
                             <a href="{{ route('singleNews', $lead->slug) }}">
                                 <h3 class="p-2"><a href="{{ route('singleNews', $item->slug) }}">{{ $item->title }}</a></h3>
 
-                                <p class="meta py-2" style="font-size: 8px;">{{ $item->author->name }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}
+                                <p class="meta py-2" style="font-size: 12px;">{{ $item->author->name }} | {{ \App\Helpers\BanglaDate::format($item->created_at) }}
 </p>
                                 <img style="max-width:440px; max-height: 240px; object-fit:contain;"
                                     src="{{ asset('storage') . '/' . $item->featuredImage->file_path ?? 'https://placehold.co/600x400' }}"
@@ -64,12 +64,53 @@
             </main>
 
             <!-- Sidebar -->
-            <aside class="sidebar">
-                <x-frontend.latest-news />
-                <div class="widget ad-widget">
-                    <span>300x250 AD</span>
-                </div>
-            </aside>
+    <aside class="sidebar">
+      <x-frontend.latest-news />
+
+      <div class="widget" >
+        <h3>জনপ্রিয়</h3>
+        <ul class="list">
+          <li><a href="#">দামের মধ্যে যেসব স্মার্টফোন বাজারে</a></li>
+          <li><a href="#">শীতে ত্বকের যত্ন নেবেন যেভাবে</a></li>
+          <li><a href="#">বাংলাদেশ দলের বিশ্বকাপ বিশ্লেষণ</a></li>
+        </ul>
+      </div>
+
+      @php $ad = ad1('home_sidebar'); @endphp
+      @if($ad && $ad->image)
+        <div class="widget ad-widget">
+          <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 1">
+        </div>
+      @endif
+
+      <x-frontend.sport-news />
+
+      @php $ad = ad2('home_sidebar'); @endphp
+      @if($ad && $ad->image)
+        <div class="widget ad-widget">
+          <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 2">
+        </div>
+      @endif
+
+      <x-frontend.celeb-news />
+
+      @php $ad = ad3('home_sidebar'); @endphp
+      @if($ad && $ad->image)
+        <div class="widget ad-widget">
+          <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 3">
+        </div>
+      @endif
+
+      <x-frontend.job-news />
+
+      @php $ad = ad4('home_sidebar'); @endphp
+      @if($ad && $ad->image)
+        <div class="widget ad-widget">
+          <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 4">
+        </div>
+      @endif
+
+    </aside>
         </div>
     @else
     @endif

@@ -1,5 +1,5 @@
         <!-- Tags -->
-        <section id="view-tags" class="view d-none">
+        <section id="view-tags" class="view">
           <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">ট্যাগ</h5>

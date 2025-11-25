@@ -1,5 +1,5 @@
         <!-- Categories -->
-        <section id="view-categories" class="view d-none">
+        <section id="view-categories" class="view ">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">ক্যাটাগরি</h5>

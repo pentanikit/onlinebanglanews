@@ -1,5 +1,5 @@
         <!-- Dashboard -->
-        <section id="view-dashboard" class="view d-none">
+        <section id="view-dashboard" class="view ">
           <div class="row g-3 mb-3">
             <div class="col-6 col-md-3">
               <div class="card h-100">

@@ -1,5 +1,5 @@
         <!-- Posts -->
-        <section id="view-posts" class="view d-none">
+        <section id="view-posts" class="view">
             <div class="card">
                 <div class="card-header">
                     <div class="row g-2 align-items-center">

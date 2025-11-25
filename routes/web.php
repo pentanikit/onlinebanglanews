@@ -32,8 +32,18 @@ Route::get('/', function () {
 | You can wrap these with middleware(['auth','can:...']) later.
 */
 
+
+//Admin Routes
+Route::prefix('admin')->group(function(){
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('site-icons', [DashboardController::class, 'site_icons'])->name('siteicons');
+    Route::get('post', [DashboardController::class, 'posts'])->name('adminposts'); 
+    Route::get('categories', [DashboardController::class, 'categories'])->name('admincategories'); 
+    Route::get('medias', [DashboardController::class, 'medias'])->name('adminmedias'); 
+});
+
 //dashboard
-Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
 
 
 // Roles

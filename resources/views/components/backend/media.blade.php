@@ -1,5 +1,5 @@
 <!-- Ads Upload -->
-<section id="view-media" class="view d-none">
+<section id="view-media" class="view">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Ad Upload</h5>
