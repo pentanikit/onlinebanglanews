@@ -1,5 +1,44 @@
 @extends('frontend.layout')
 @section('pages')
+
+<style>
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.pagination .page-link,
+.pagination span.page-link {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #333;
+}
+
+.pagination .page-link:hover {
+    background: #f2f2f2;
+}
+
+.pagination .page-link.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+    cursor: default;
+}
+
+.pagination .page-link.disabled {
+    color: #aaa;
+    border-color: #eee;
+    cursor: not-allowed;
+    background: #f9f9f9;
+}
+</style>
+
     <!-- Page Title -->
     <div class="container">
         <div class="page-title-wrap">
@@ -54,13 +93,35 @@
                     @endforeach
                 </div>
 
-                <!-- Pagination (dummy) -->
-                {{-- <div class="pagination">
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">পরের পাতা »</a>
-                </div> --}}
+                
+                {{-- Pagination --}}
+                @if ($posts->hasPages())
+                    <div class="pagination">
+                        {{-- Previous Page --}}
+                        @if ($posts->onFirstPage())
+                            <span class="page-link disabled">« আগের পাতা</span>
+                        @else
+                            <a href="{{ $posts->previousPageUrl() }}" class="page-link" rel="prev">« আগের পাতা</a>
+                        @endif
+
+                        {{-- Page Numbers --}}
+                        @foreach ($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
+                            @if ($page == $posts->currentPage())
+                                <span class="page-link active">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}" class="page-link">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        {{-- Next Page --}}
+                        @if ($posts->hasMorePages())
+                            <a href="{{ $posts->nextPageUrl() }}" class="page-link" rel="next">পরের পাতা »</a>
+                        @else
+                            <span class="page-link disabled">পরের পাতা »</span>
+                        @endif
+                    </div>
+                @endif
+
             </main>
 
             <!-- Sidebar -->

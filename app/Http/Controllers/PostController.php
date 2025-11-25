@@ -336,7 +336,7 @@ class PostController extends Controller
         // dd('Route hit with slug: ' . $slug);
         $category = Category::where('slug', $slug)->firstOrFail();
         // dd($category->id);
-        $posts = Post::where('category_id', $category->id)->orderBy('created_at', 'desc')->with(['author', 'featuredImage', 'tags', 'comments'])->get();
+        $posts = Post::where('category_id', $category->id)->orderBy('created_at', 'desc')->with(['author', 'featuredImage', 'tags', 'comments'])->paginate(4);
         // dd($posts);
         return view('frontend.categorywisenews', [
             'category' => $category,
