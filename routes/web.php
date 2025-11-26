@@ -122,6 +122,8 @@ Route::get('news/{slug}', [PostController::class, 'show'])->name('singleNews');
 //ads route
 Route::post('/ads/store', [AdBlockController::class, 'store'])->name('ads.store');
 
+Route::get('videos', [DashboardController::class, 'video'])->name('videoss');
+
 
 /*
 |--------------------------------------------------------------------------

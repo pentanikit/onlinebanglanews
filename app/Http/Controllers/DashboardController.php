@@ -26,4 +26,8 @@ class DashboardController extends Controller
         return view('backend.medias');
     }
 
+    public function videos(){
+        return view('frontend.videos');
+    }
+
 }
