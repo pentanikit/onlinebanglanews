@@ -13,7 +13,10 @@
           @php $ad = ad1('home_sidebar'); @endphp
           @if($ad && $ad->image)
             <div class="widget ad-widget">
-              <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 1">
+              <a href="{{ $ad->url }}">
+                 <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 1">
+              </a>
+             
             </div>
           @endif
 
@@ -22,7 +25,9 @@
           @php $ad = ad2('home_sidebar'); @endphp
           @if($ad && $ad->image)
             <div class="widget ad-widget">
+              <a href="{{ $ad->url }}">
               <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 2">
+              </a>
             </div>
           @endif
 
@@ -31,7 +36,9 @@
           @php $ad = ad3('home_sidebar'); @endphp
           @if($ad && $ad->image)
             <div class="widget ad-widget">
+              <a href="{{ $ad->url }}">
               <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 3">
+              </a>
             </div>
           @endif
 
@@ -40,7 +47,9 @@
           @php $ad = ad4('home_sidebar'); @endphp
           @if($ad && $ad->image)
             <div class="widget ad-widget">
+              <a href="{{ $ad->url }}">
               <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 4">
+              </a>
             </div>
           @endif
 

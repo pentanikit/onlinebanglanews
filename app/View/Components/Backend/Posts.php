@@ -18,7 +18,7 @@ class Posts extends Component
 
     public function __construct()
     {
-        $this->posts = Post::with(['featuredImage', 'category'])->paginate(10);
+        $this->posts = Post::with(['featuredImage', 'category'])->latest()->paginate(10);
         $this->categories = Category::all();
     }
 

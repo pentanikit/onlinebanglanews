@@ -63,7 +63,7 @@
 
          <!-- Sidebar -->
          <aside class="sidebar">
-             <div class="widget" style="width: 100%; max-height: 400px;">
+             <div class="widget" style="width: 100%; max-height: 410px;">
                  <h3>আরো দেখুন </h3>
                  <ul class="news-list">
                      @forelse ($others as $item)
@@ -84,7 +84,9 @@
                    @php $ad = ad6('home_sidebar'); @endphp
                     @if($ad && $ad->image)
                         <div class="widget ad-widget">
-                        <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 6">
+                         <a href="{{ $ad->url }}">
+                            <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 6">
+                         </a>
                         </div>
                     @endif
               <x-frontend.health-news />

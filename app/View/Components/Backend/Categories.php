@@ -18,7 +18,7 @@ class Categories extends Component
     {
         $this->categories = Category::orderBy('order_column')
             ->orderBy('id')
-            ->get();
+            ->paginate(20);
     }
 
     /**
