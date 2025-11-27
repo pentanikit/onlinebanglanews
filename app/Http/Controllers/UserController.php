@@ -17,7 +17,7 @@ class UserController extends Controller
         // Validate email & password
         $credentials = $request->validate([
             'email'    => ['required', 'email'],
-            'password' => ['required', 'string', 'min:6'],
+            'password' => ['required', 'string', 'min:4'],
         ]);
 
         // Remember me (optional)

@@ -85,7 +85,7 @@
                    @php $ad = ad6('home_sidebar'); @endphp
                     @if($ad && $ad->image)
                         <div class="widget ad-widget">
-                         <a href="{{ $ad->url }}">
+                         <a target="_blank" href="{{ $ad->url }}">
                             <img src="{{ asset('storage/'.$ad->image) }}" alt="Ad 6">
                          </a>
                         </div>

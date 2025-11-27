@@ -30,7 +30,7 @@ class CheckAdmin
         $user = Auth::user();
 
         // যদি admin না হয়
-        if (!$user->is_admin) {
+        if (!$user->role == 'admin') {
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => false,

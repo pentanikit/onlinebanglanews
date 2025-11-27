@@ -13,6 +13,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdBlockController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,14 @@ Route::resource('comments', CommentController::class)->only([
 | These are for your actual newspaper pages.
 | You can move them to a separate route file later.
 */
+
+Route::get('login', function(){
+    return view('login');
+})->name('login');
+
+Route::post('auth', [UserController::class,  'login'])->name('auth');
+
+Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 // Single news by slug
 Route::get('/news/{slug}', function ($slug) {

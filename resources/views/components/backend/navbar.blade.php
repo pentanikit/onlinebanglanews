@@ -15,7 +15,7 @@
           <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-circle me-1"></i>Admin</button>
           <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" href="#profile">প্রোফাইল</a>
-            <a class="dropdown-item" href="#logout">লগআউট</a>
+            <a class="dropdown-item" href="{{ route('logout') }}">লগআউট</a>
           </div>
         </div>
       </div>
