@@ -18,9 +18,9 @@ class HealthNews extends Component
     public $catTitle;
     public function __construct()
     {
-        $cats = Category::where('slug', 'খেলা')->firstOrFail();
+        $cats = Category::where('slug', 'health')->firstOrFail();
         $this->catTitle = $cats->name ?? $cats->title ?? $cats->slug;
-        $this->healthNews = Post::where('status', 'published')->where('category_id', $cats->id)->latest()->paginate(20);
+        $this->healthNews = Post::where('status', 'published')->where('category_id', $cats->id)->latest()->take(4)->get();
     }
 
     /**
