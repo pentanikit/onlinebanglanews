@@ -63,7 +63,7 @@
 
          <!-- Sidebar -->
          <aside class="sidebar">
-             <div class="widget" style="width: 100%; max-height: 410px;">
+             <div class="widget" style="width: 100%; max-height: 400px;">
                  <h3>আরো দেখুন </h3>
                  <ul class="news-list">
                      @forelse ($others as $item)
