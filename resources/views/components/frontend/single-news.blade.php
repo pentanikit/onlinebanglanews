@@ -37,7 +37,7 @@
 
         </article>
 
-
+<x-frontend.related-posts :id='$singlePost->category_id' />
 
     </main>
 

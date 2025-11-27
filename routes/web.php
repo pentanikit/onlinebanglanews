@@ -34,7 +34,7 @@ Route::get('/', function () {
 
 
 //Admin Routes
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('site-icons', [DashboardController::class, 'site_icons'])->name('siteicons');
     Route::get('post', [DashboardController::class, 'posts'])->name('adminposts'); 
