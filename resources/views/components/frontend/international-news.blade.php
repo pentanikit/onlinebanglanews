@@ -65,21 +65,22 @@
          <aside class="sidebar">
              <div class="widget" style="width: 100%; max-height: 400px;">
                  <h3>আরো দেখুন </h3>
-                 <ul class="news-list">
-                     @forelse ($others as $item)
-                         <li>
-                            
-                             <img src="{{ $item->featuredImage->file_path ? asset('storage/' . $item->featuredImage->file_path) : 'https://placehold.co/60x40' }}"
-                                 alt="{{ $item->title }}">
-                             <span><a href="{{ route('singleNews', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 20) }}</a></span>
-                            
-                         </li>
-                     @empty
-                         <p>এই ক্যাটাগরিতে কোনো খবর পাওয়া যায়নি।</p>
-                     @endforelse
+                    <ul class="news-list">
+                        @forelse ($others as $item)
+                            <li>
+                                
+                                <img src="{{ $item->featuredImage->file_path ? asset('storage/' . $item->featuredImage->file_path) : 'https://placehold.co/60x40' }}"
+                                    alt="{{ $item->title }}">
+                                <span><a href="{{ route('singleNews', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 32) }}</a></span>
+                                
+                            </li>
+
+                        @empty
+                            <p>এই ক্যাটাগরিতে কোনো খবর পাওয়া যায়নি।</p>
+                        @endforelse
 
 
-                 </ul>
+                    </ul>
              </div>
                    @php $ad = ad6('home_sidebar'); @endphp
                     @if($ad && $ad->image)
