@@ -1,95 +1,120 @@
         <!-- Posts -->
         <section id="view-posts" class="view">
             <div class="card">
+                <!-- Posts -->
+        <section id="view-posts" class="view">
+            <div class="card">
                 <div class="card-header">
-                    <div class="row g-2 align-items-center">
-                        <div class="col">
-                            <h5 class="mb-0">পোস্ট ম্যানেজ</h5>
-                        </div>
-                        <div class="col-12 col-md-auto">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                <input id="postSearch" class="form-control" placeholder="শিরোনাম/ট্যাগ">
+                    <form id="postFilterForm" method="GET" action="{{ url()->current() }}">
+                        <div class="row g-2 align-items-center">
+                            <div class="col">
+                                <h5 class="mb-0">পোস্ট ম্যানেজ</h5>
+                            </div>
+
+                            {{-- Search input --}}
+                            <div class="col-12 col-md-auto">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    <input
+                                        id="postSearch"
+                                        name="search"
+                                        class="form-control"
+                                        placeholder="শিরোনাম/ট্যাগ"
+                                        value="{{ request('search') }}"
+                                    >
+                                </div>
+                            </div>
+
+                            {{-- Status filter --}}
+                            <div class="col-6 col-md-auto">
+                                <select id="postStatus" name="status" class="form-select">
+                                    <option value="">সব স্ট্যাটাস</option>
+                                    <option value="published" {{ request('status') === 'published' ? 'selected' : '' }}>Published</option>
+                                    <option value="draft"     {{ request('status') === 'draft' ? 'selected' : '' }}>Draft</option>
+                                    <option value="pending"   {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
+                                </select>
+                            </div>
+
+                            {{-- Optional filter button --}}
+                            <div class="col-6 col-md-auto">
+                                <button type="submit" class="btn btn-outline-secondary">
+                                    ফিল্টার
+                                </button>
+                            </div>
+
+                            <div class="col-12 col-md-auto text-end">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">
+                                    <i class="bi bi-plus-lg"></i> নতুন পোস্ট
+                                </button>
                             </div>
                         </div>
-                        <div class="col-6 col-md-auto">
-                            <select id="postStatus" class="form-select">
-                                <option value="">সব স্ট্যাটাস</option>
-                                <option value="published">Published</option>
-                                <option value="draft">Draft</option>
-                                <option value="pending">Pending</option>
-                            </select>
+                    </form>
+                </div>
+
+                        <div class="card-body card-table">
+                            <table class="table table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>শিরোনাম</th>
+                                        <th>ক্যাটাগরি</th>
+                                        <th>ট্যাগ</th>
+                                        <th>স্ট্যাটাস</th>
+                                        <th>তারিখ</th>
+                                        <th class="text-end">একশন</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="postsTbody">
+                                    @forelse ($posts as $item)
+                                    <tr>
+                                        <td><img style="width: 100px; height:100px;" src="{{ asset('storage').'/'.$item->featuredImage->file_path ?? '' }}" alt="" srcset=""> {{ $item->title }}</td>
+                                        <td>{{ $item->category->name ?? 'Null' }}</td>
+                                        <td>{{ $item->tags[0]->name ?? 'Null' }}</td>
+                                        <td>{{ $item->status }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-1">
+                                            {{-- Edit button --}}
+                                            <a href="{{ route('posts.edit', $item->id) }}" 
+                                            class="btn btn-sm btn-outline-primary" 
+                                            title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+
+                                            {{-- Delete form --}}
+                                            <form action="{{ route('posts.destroy', $item->id) }}" 
+                                                method="POST"
+                                                onsubmit="return confirm('আপনি কি নিশ্চিত এই পোস্টটি ডিলিট করতে চান?');"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" 
+                                                        class="btn btn-sm btn-outline-danger" 
+                                                        title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+
+                                    </tr>
+
+                                    @empty
+                                    <tr>
+                                        <td>No items found</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-6 col-md-auto text-end">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal"><i
-                                    class="bi bi-plus-lg"></i> নতুন পোস্ট</button>
+                        <div class="card-footer d-flex justify-content-between small text-secondary">
+                            <div id="postsSummary">{{ $posts->count() }} ফলাফল</div>
+                            <div class="btn-group">
+                                {{-- <button class="btn btn-outline-secondary" id="prevPage">পূর্ববর্তী</button>
+                                <button class="btn btn-outline-secondary" id="nextPage">পরবর্তী</button> --}}
+                                {{ $posts->links() }}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body card-table">
-                    <table class="table table-striped align-middle">
-                        <thead>
-                            <tr>
-                                <th>শিরোনাম</th>
-                                <th>ক্যাটাগরি</th>
-                                <th>ট্যাগ</th>
-                                <th>স্ট্যাটাস</th>
-                                <th>তারিখ</th>
-                                <th class="text-end">একশন</th>
-                            </tr>
-                        </thead>
-                        <tbody id="postsTbody">
-                            @forelse ($posts as $item)
-                            <tr>
-                                <td><img style="width: 100px; height:100px;" src="{{ asset('storage').'/'.$item->featuredImage->file_path ?? '' }}" alt="" srcset=""> {{ $item->title }}</td>
-                                <td>{{ $item->category->name ?? 'Null' }}</td>
-                                <td>{{ $item->tags[0]->name ?? 'Null' }}</td>
-                                <td>{{ $item->status }}</td>
-                                <td>{{ $item->created_at }}</td>
-                            <td class="text-end">
-                                <div class="d-inline-flex gap-1">
-                                    {{-- Edit button --}}
-                                    <a href="{{ route('posts.edit', $item->id) }}" 
-                                    class="btn btn-sm btn-outline-primary" 
-                                    title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-
-                                    {{-- Delete form --}}
-                                    <form action="{{ route('posts.destroy', $item->id) }}" 
-                                        method="POST"
-                                        onsubmit="return confirm('আপনি কি নিশ্চিত এই পোস্টটি ডিলিট করতে চান?');"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" 
-                                                class="btn btn-sm btn-outline-danger" 
-                                                title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-
-                            </tr>
-
-                            @empty
-                             <tr>
-                                <td>No items found</td>
-                             </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer d-flex justify-content-between small text-secondary">
-                    <div id="postsSummary">{{ $posts->count() }} ফলাফল</div>
-                    <div class="btn-group">
-                        {{-- <button class="btn btn-outline-secondary" id="prevPage">পূর্ববর্তী</button>
-                        <button class="btn btn-outline-secondary" id="nextPage">পরবর্তী</button> --}}
-                        {{ $posts->links() }}
-                    </div>
-                </div>
-            </div>
         </section>
 
 
@@ -439,3 +464,46 @@
                 });
             });
         </script>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form   = document.getElementById('postFilterForm');
+    const status = document.getElementById('postStatus');
+    const search = document.getElementById('postSearch');
+
+    if (!form) return;
+
+    // 🔁 status change হলেই submit
+    if (status) {
+        status.addEventListener('change', function () {
+            form.submit();
+        });
+    }
+
+    // ⏎ Enter প্রেস করলে search submit
+    if (search) {
+        let lastValue = search.value;
+
+        search.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                form.submit();
+            }
+        });
+
+        // ইনপুট ক্লিয়ার করলে (value '' হলে) auto submit → default all posts
+        search.addEventListener('input', function () {
+            const currentValue = this.value.trim();
+
+            // আগে কিছু ছিল, এখন খালি → সব পোস্ট দেখানোর জন্য submit
+            if (currentValue === '' && lastValue !== '') {
+                form.submit();
+            }
+
+            lastValue = currentValue;
+        });
+    }
+});
+</script>
+@endpush

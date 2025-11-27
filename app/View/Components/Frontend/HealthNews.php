@@ -20,7 +20,7 @@ class HealthNews extends Component
     {
         $cats = Category::where('slug', 'খেলা')->firstOrFail();
         $this->catTitle = $cats->name ?? $cats->title ?? $cats->slug;
-        $this->healthNews = Post::where('status', 'published')->where('category_id', $cats->id)->latest()->paginate(6);
+        $this->healthNews = Post::where('status', 'published')->where('category_id', $cats->id)->latest()->paginate(20);
     }
 
     /**
