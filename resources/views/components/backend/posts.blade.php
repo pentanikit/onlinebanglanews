@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="col-12 col-md-auto text-end">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">
                                     <i class="bi bi-plus-lg"></i> নতুন পোস্ট
                                 </button>
                             </div>
@@ -124,7 +124,7 @@
                     <form id="postForm" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h5 class="modal-title">নতুন পোস্ট</h5>
-                            <button class="btn-close" data-bs-dismiss="modal"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
                         <div class="modal-body row g-3">
@@ -465,7 +465,7 @@
             });
         </script>
 
-@push('scripts')
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const form   = document.getElementById('postFilterForm');
@@ -506,4 +506,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 </script>
-@endpush
+
