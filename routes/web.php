@@ -41,6 +41,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){
     Route::get('post', [DashboardController::class, 'posts'])->name('adminposts'); 
     Route::get('categories', [DashboardController::class, 'categories'])->name('admincategories'); 
     Route::get('medias', [DashboardController::class, 'medias'])->name('adminmedias'); 
+    Route::get('settings', [DashboardController::class, 'settings'])->name('adminsettings');
+    Route::post('settings-update', [SettingController::class, 'update'])->name('admin.settings.update');
 });
 
 //dashboard

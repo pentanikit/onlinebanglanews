@@ -30,4 +30,8 @@ class DashboardController extends Controller
         return view('frontend.videos');
     }
 
+    public function settings(){
+        return view('backend.settings');
+    }
+
 }

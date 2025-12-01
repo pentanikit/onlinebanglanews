@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class SettingController extends Controller
 {
@@ -39,5 +40,23 @@ class SettingController extends Controller
         }
 
         return redirect()->route('settings.index')->with('success', 'Settings saved.');
+    }
+
+    public function update(Request $request)
+    {
+        // যেসব ইনপুট আসবে সব নিয়েই কাজ করব
+        $data = $request->except(['_token']);
+
+        foreach ($data as $key => $value) {
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        // cache clear (আগে helper এ cache করলে)
+        Cache::forget('settings_cache');
+
+        return redirect()->back()->with('success', 'সেটিংস সফলভাবে আপডেট হয়েছে।');
     }
 }

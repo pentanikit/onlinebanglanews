@@ -27,7 +27,8 @@
         },
         "files": [
             "app/Helpers/BanglaDate.php",
-            "app/Helpers/Helpers.php"
+            "app/Helpers/Helpers.php",
+            "app/Helpers/SEO.php"
         ]
     },
     "autoload-dev": {

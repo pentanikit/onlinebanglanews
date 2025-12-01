@@ -3,7 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>অনলাইন বাংলা নিউজ </title>
+       
+    <title>
+        @yield('meta_title', seo_setting('site_meta_title', 'অনলাইন বাংলা '))
+    </title>
+
+    <meta name="description"
+          content="@yield('meta_description', seo_setting('site_meta_description', 'অনলাইন বাংলা নিউজ – নির্ভরযোগ্য অনলাইন বাংলা সংবাদ পোর্টাল।'))">
+
+    <meta name="keywords"
+          content="@yield('meta_keywords', seo_setting('site_meta_keywords', 'অনলাইন বাংলা নিউজ, বাংলা খবর'))">
+
+ 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="icon"

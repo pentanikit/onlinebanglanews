@@ -11,7 +11,7 @@
           <a class="nav-link" data-nav href="#pages"><i class="bi bi-file-earmark-text me-2"></i>পেইজ</a>
           <a class="nav-link" data-nav href="#users"><i class="bi bi-people me-2"></i>ইউজার</a>
           <a class="nav-link" data-nav href="#comments"><i class="bi bi-chat-square-text me-2"></i>কমেন্ট</a>
-          <a class="nav-link" data-nav href="#settings"><i class="bi bi-gear me-2"></i>সেটিংস</a>
+          <a class="nav-link" data-nav href="{{ route('adminsettings') }}"><i class="bi bi-gear me-2"></i>সেটিংস</a>
         </nav>
       </aside>
 
@@ -33,7 +33,7 @@
             <a class="nav-link" data-nav href="#pages" data-bs-dismiss="offcanvas"><i class="bi bi-file-earmark-text me-2"></i>পেইজ</a>
             <a class="nav-link" data-nav href="#users" data-bs-dismiss="offcanvas"><i class="bi bi-people me-2"></i>ইউজার</a>
             <a class="nav-link" data-nav href="#comments" data-bs-dismiss="offcanvas"><i class="bi bi-chat-square-text me-2"></i>কমেন্ট</a>
-            <a class="nav-link" data-nav href="#settings" data-bs-dismiss="offcanvas"><i class="bi bi-gear me-2"></i>সেটিংস</a>
+            <a class="nav-link" data-nav href="{{ route('adminsettings') }}" data-bs-dismiss="offcanvas"><i class="bi bi-gear me-2"></i>সেটিংস</a>
           </nav>
         </div>
       </div>
