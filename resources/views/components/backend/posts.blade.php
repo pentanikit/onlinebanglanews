@@ -154,6 +154,14 @@
                                 </select>
                             </div>
 
+                            <div class="col-6">
+                                <label class="form-label">মেটা টাইটেল (Meta title)</label>
+                                <input type="text" class="form-control" name="meta_title">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">মেটা ডেসক্রিপশন (Meta description)</label>
+                                <input type="text" class="form-control" name="meta_description">
+                            </div>
 
                             <div class="col-12">
                                 <label class="form-label">এক্সসার্প্ট</label>
